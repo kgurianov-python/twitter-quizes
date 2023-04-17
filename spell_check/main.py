@@ -16,6 +16,7 @@ import logging
 
 from textblob import TextBlob, Word
 
+SPELL_TRESHOLD = 0.99
 
 # log_format = '%(asctime)s [%(name)s]  [%(levelname)s] : %(message)s'
 # logging.basicConfig(filename="log.log", level=logging.DEBUG, format=log_format)
@@ -38,8 +39,8 @@ def do_spell_check(word: Word):
     res = word.spellcheck()
     logging.debug(f"{res}")
 
-    # if we have more than onw result with score 1.0, return them all
-    candidates = list(filter(lambda tup: tup[1] >= 1.0, res))
+    # if we have more than onw result with score SPELL_TRESHOLD and higher, return them all
+    candidates = list(filter(lambda tup: tup[1] >= SPELL_TRESHOLD, res))
     if candidates:
         return ",".join([word for word, _ in candidates])
     else:
