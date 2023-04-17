@@ -37,10 +37,13 @@ def check_yes_no(msg: str) -> bool:
 def do_spell_check(word: Word):
     res = word.spellcheck()
     logging.debug(f"{res}")
+
+    # if we have more than onw result with score 1.0, return them all
     candidates = list(filter(lambda tup: tup[1] >= 1.0, res))
     if candidates:
         return ",".join([word for word, _ in candidates])
     else:
+        # return the candidate with the highest score
         best_choice = max(res, key=lambda item: item[1])
         if check_yes_no(f"\nIs \"{best_choice[0]}\" the word?"):
             return best_choice[0]
