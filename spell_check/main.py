@@ -45,7 +45,7 @@ def do_spell_check(word: Word):
     else:
         # return the candidate with the highest score
         best_choice = max(res, key=lambda item: item[1])
-        if check_yes_no(f"\nIs \"{best_choice[0]}\" the word?"):
+        if check_yes_no(f"Is \"{best_choice[0]}\" the word?"):
             return best_choice[0]
 
 
