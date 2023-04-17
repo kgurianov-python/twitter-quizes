@@ -16,10 +16,10 @@ import logging
 
 from textblob import TextBlob, Word
 
-SPELL_TRESHOLD = 0.99
+SPELL_TRESHOLD = 0.90
 
-# log_format = '%(asctime)s [%(name)s]  [%(levelname)s] : %(message)s'
-# logging.basicConfig(filename="log.log", level=logging.DEBUG, format=log_format)
+log_format = '%(asctime)s [%(name)s]  [%(levelname)s] : %(message)s'
+logging.basicConfig(filename="log.log", level=logging.DEBUG, format=log_format)
 
 def get_one_word_from_user():
     """Ask user input util user enters a single word"""
@@ -42,7 +42,7 @@ def do_spell_check(word: Word):
     # if we have more than onw result with score SPELL_TRESHOLD and higher, return them all
     candidates = list(filter(lambda tup: tup[1] >= SPELL_TRESHOLD, res))
     if candidates:
-        return ",".join([word for word, _ in candidates])
+        return ", ".join([word for word, _ in candidates])
     else:
         # return the candidate with the highest score
         best_choice = max(res, key=lambda item: item[1])
